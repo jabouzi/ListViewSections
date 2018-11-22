@@ -7,10 +7,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-class CustomAdapter extends BaseAdapter {
+class CustomAdapter2 extends ArrayAdapter<String> {
 
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_SEPARATOR = 1;
@@ -19,7 +19,8 @@ class CustomAdapter extends BaseAdapter {
     private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
     private LayoutInflater mInflater;
 
-    public CustomAdapter(Context context) {
+    public CustomAdapter2(Context context) {
+        super(context, R.layout.snippet_item1);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

@@ -1,32 +1,34 @@
 package com.skanderjabouzi.listviewsections;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class SectionListView2 extends ListActivity {
+public class SectionListView2 extends Activity {
 
-    private CustomAdapter mAdapter;
+    private CustomAdapter2 mAdapter;
     private HashMap<String, ArrayList<String>> list;
+    ListView listView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new CustomAdapter(this);
+        setContentView(R.layout.list_view);
+        mAdapter = new CustomAdapter2(this);
+        listView = findViewById(R.id.list);
+        listView.setAdapter(mAdapter);
         list = new HashMap<>();
         ArrayList<String> data1 = new ArrayList<String>();
         ArrayList<String> data2 = new ArrayList<String>();
-//        String[] sections = new String[] {"Section", "Section2"};
 
-//        mAdapter = new CustomAdapter(this);
         for (int i = 1; i < 20; i++) {
             data1.add("Row Item #" + i + "Section # 1");
         }
@@ -46,17 +48,19 @@ public class SectionListView2 extends ListActivity {
             }
         }
 
-        setListAdapter(mAdapter);
-    }
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-
-        //get selected items
-        int type = getListAdapter().getItemViewType(position);
-        if (type == 0) {
-            String selectedValue = (String) getListAdapter().getItem(position);
-            Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
-        }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int type = listView.getAdapter().getItemViewType(position);
+                if (type == 0) {
+                    String selectedValue = (String) listView.getAdapter().getItem(position);
+                    Toast.makeText(SectionListView2.this, "You Clicked at " + position + ": " + selectedValue, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
+
+
+
+
